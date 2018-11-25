@@ -15,7 +15,5 @@ namespace PacmanService
         void Right();
 
         void Report();
-
-        bool IsPlacedOnGrid();
     }
 }

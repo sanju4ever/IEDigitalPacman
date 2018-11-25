@@ -33,44 +33,32 @@ namespace GridProvider
         private bool IsValidCommand(string command)
         {
             const string commandList = "PLACE,MOVE,REPORT,LEFT,RIGHT";
-            bool valid = false;
 
             try
             {
                 string[] commandParts = command.Split(',');
                 var c = commandParts[0].ToUpper();
 
-                valid = commandList.Contains(c);
-                if (!valid) return false;
-
-                if (!c.Equals("PLACE"))
-                {
-                    valid = _pacman.IsPlacedOnGrid();
-                }                
+                return commandList.Contains(c);             
             }
             catch
             {
                 return false;
             }
-
-            return valid;
         }
 
         public void Execute(string command)
         {
             command = command.Replace(" ", ",");
-            bool successful = false;
 
             if (IsValidCommand(command))
             {
-                successful = RunCommand(command);
+                RunCommand(command);
             }
         }
 
-        private bool RunCommand(string command)
+        private void RunCommand(string command)
         {
-            bool result = false;
-
             try
             {
                 if (command.Contains(","))
@@ -79,8 +67,6 @@ namespace GridProvider
                     var x = Convert.ToInt32(commandParts[1]);
                     var y = Convert.ToInt32(commandParts[2]);
                     var d = Convert.ToString(commandParts[3]).ToUpper();
-                    result = (d.Equals(Pacman.NORTH) || d.Equals(Pacman.EAST) || d.Equals(Pacman.SOUTH) || d.Equals(Pacman.WEST));
-                    if (!result) return false;
 
                     _pacman.Place(x, y, d);
                 }
@@ -101,16 +87,12 @@ namespace GridProvider
                             _pacman.Report();
                             break;
                     }
-
-                    result = true;
                 }
             }
             catch
             {
-                return false;
+                throw;
             }
-
-            return result;
         }
     }
 }

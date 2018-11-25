@@ -12,7 +12,7 @@ namespace MacmanSimulator
             do
             {
                 Console.Write("Enter command: ");
-                command = Console.ReadLine();
+                command = Console.ReadLine().Trim();
 
                 var grid = BasicGrid.Create();
                 grid.Execute(command);
