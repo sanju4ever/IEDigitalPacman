@@ -9,17 +9,32 @@ namespace PacmanService
         public const string SOUTH = "SOUTH";
         public const string WEST = "WEST";
 
-        public const int GRIDMAX = 4;
-        public const int GRIDMIN = 0;
+        private const int GRIDMAX = 4;
+        private const int GRIDMIN = 0;
 
-        private int PositionX { get; set; } = int.MinValue;
-        private int PositionY { get; set; } = int.MinValue;
-        private string Direction { get; set; } = string.Empty;
+        private int positionX = int.MinValue;
+        private int positionY = int.MinValue;
+        private string direction = string.Empty;
+
+        public int PositionX
+        {
+            get { return positionX; }
+        }
+
+        public int PositionY
+        {
+            get { return positionY; }
+        }
+
+        public string Direction
+        {
+            get { return direction; }
+        }
 
         public void Place(int x, int y, string d)
         {
-            if (x >= GRIDMIN && x <= GRIDMAX) PositionX = x;
-            if (y >= GRIDMIN && y <= GRIDMAX) PositionY = y;
+            if (x >= GRIDMIN && x <= GRIDMAX) positionX = x;
+            if (y >= GRIDMIN && y <= GRIDMAX) positionY = y;
 
             switch (d.ToUpper())
             {
@@ -27,10 +42,10 @@ namespace PacmanService
                 case EAST:
                 case SOUTH:
                 case WEST:
-                    Direction = d.ToUpper();
+                    direction = d.ToUpper();
                     break;
                 default:
-                    Direction = string.Empty;
+                    direction = string.Empty;
                     break;
             }
         }
@@ -39,19 +54,19 @@ namespace PacmanService
         {
             if (IsPlacedOnGrid())
             {
-                switch (Direction)
+                switch (direction)
                 {
                     case NORTH:
-                        if (PositionY < GRIDMAX) PositionY++;
+                        if (positionY < GRIDMAX) positionY++;
                         break;
                     case EAST:
-                        if (PositionX < GRIDMAX) PositionX++;
+                        if (positionX < GRIDMAX) positionX++;
                         break;
                     case SOUTH:
-                        if (PositionY > GRIDMIN) PositionY--;
+                        if (positionY > GRIDMIN) positionY--;
                         break;
                     case WEST:
-                        if (PositionX > GRIDMIN) PositionX--;
+                        if (positionX > GRIDMIN) positionX--;
                         break;
                 }
             }
@@ -61,19 +76,19 @@ namespace PacmanService
         {
             if (IsPlacedOnGrid())
             {
-                switch (Direction)
+                switch (direction)
                 {
                     case NORTH:
-                        Direction = WEST;
+                        direction = WEST;
                         break;
                     case EAST:
-                        Direction = NORTH;
+                        direction = NORTH;
                         break;
                     case SOUTH:
-                        Direction = EAST;
+                        direction = EAST;
                         break;
                     case WEST:
-                        Direction = SOUTH;
+                        direction = SOUTH;
                         break;
                 }
             }
@@ -83,38 +98,40 @@ namespace PacmanService
         {
             if (IsPlacedOnGrid())
             {
-                switch (Direction)
+                switch (direction)
                 {
                     case NORTH:
-                        Direction = EAST;
+                        direction = EAST;
                         break;
                     case EAST:
-                        Direction = SOUTH;
+                        direction = SOUTH;
                         break;
                     case SOUTH:
-                        Direction = WEST;
+                        direction = WEST;
                         break;
                     case WEST:
-                        Direction = NORTH;
+                        direction = NORTH;
                         break;
                 }
             }
         }
 
-        public void Report()
+        public string Report()
         {
             if (IsPlacedOnGrid())
             {
                 var message = "Output: {0}, {1}, {2}";
-                Console.WriteLine(message, PositionX.ToString(), PositionY.ToString(), Direction.ToString());
+                return string.Format(message, positionX.ToString(), positionY.ToString(), direction.ToString());
             }
+
+            return string.Empty;
         }
 
         private bool IsPlacedOnGrid()
         {
-            return (PositionX >= GRIDMIN && PositionX <= GRIDMAX)
-                && (PositionY >= GRIDMIN && PositionY <= GRIDMAX)
-                && (Direction.Equals(NORTH) || Direction.Equals(EAST) || Direction.Equals(SOUTH) || Direction.Equals(WEST));
+            return (positionX >= GRIDMIN && positionX <= GRIDMAX)
+                && (positionY >= GRIDMIN && positionY <= GRIDMAX)
+                && (direction.Equals(NORTH) || direction.Equals(EAST) || direction.Equals(SOUTH) || direction.Equals(WEST));
         }
     }
 }

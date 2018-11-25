@@ -14,6 +14,6 @@ namespace PacmanService
 
         void Right();
 
-        void Report();
+        string Report();
     }
 }

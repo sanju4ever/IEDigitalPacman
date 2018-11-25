@@ -84,7 +84,7 @@ namespace GridProvider
                             _pacman.Right();
                             break;
                         case "REPORT":
-                            _pacman.Report();
+                            Console.WriteLine(_pacman.Report());
                             break;
                     }
                 }
