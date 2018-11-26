@@ -4,18 +4,22 @@ namespace PacmanService
 {
     public class Pacman: IPacman
     {
+        // Directions
         public const string NORTH = "NORTH";
         public const string EAST = "EAST";
         public const string SOUTH = "SOUTH";
         public const string WEST = "WEST";
 
+        // Grid Limits
         private const int GRIDMAX = 4;
         private const int GRIDMIN = 0;
 
+        // Private variables
         private int positionX = int.MinValue;
         private int positionY = int.MinValue;
         private string direction = string.Empty;
 
+        // Read-only properties
         public int PositionX
         {
             get { return positionX; }
@@ -30,6 +34,8 @@ namespace PacmanService
         {
             get { return direction; }
         }
+
+        #region Public Methods
 
         public void Place(int x, int y, string d)
         {
@@ -128,11 +134,17 @@ namespace PacmanService
             return string.Empty;
         }
 
+        #endregion
+
+        #region Private Methods
+
         private bool IsPlacedOnGrid()
         {
             return (positionX >= GRIDMIN && positionX <= GRIDMAX)
                 && (positionY >= GRIDMIN && positionY <= GRIDMAX)
                 && (direction.Equals(NORTH) || direction.Equals(EAST) || direction.Equals(SOUTH) || direction.Equals(WEST));
         }
+
+        #endregion
     }
 }

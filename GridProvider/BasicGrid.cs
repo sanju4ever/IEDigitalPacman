@@ -10,11 +10,13 @@ namespace GridProvider
 
         private BasicGrid()
         {
+            // Pacman as a Dependancy to BasicGrid
             IUnityContainer container = new UnityContainer();
             container.RegisterType<IPacman, Pacman>();
             _pacman = container.Resolve<Pacman>();
         }
 
+        // Singleton implementation
         private static BasicGrid instance = null;
         private static readonly object padlock = new object();
         public static BasicGrid Create()
