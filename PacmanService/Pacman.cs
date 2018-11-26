@@ -33,6 +33,7 @@ namespace PacmanService
 
         public void Place(int x, int y, string d)
         {
+            if (string.IsNullOrWhiteSpace(d)) d = string.Empty;
             if (x >= GRIDMIN && x <= GRIDMAX) positionX = x;
             if (y >= GRIDMIN && y <= GRIDMAX) positionY = y;
 
